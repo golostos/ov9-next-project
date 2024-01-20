@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/components/ThemeProvider'
 import Appbar from '@/components/Appbar'
+import Providers from '@/components/Providers'
 
 const roboto = Roboto({ weight: ['400', '700'], subsets: ['cyrillic-ext'] })
 
@@ -19,15 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <Appbar />
-          {children}
-        </ThemeProvider>
+          <main className='mx-auto w-full max-w-[800px]'>
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   )
