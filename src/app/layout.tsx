@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={roboto.className}>
         <Providers>
           <Appbar />
-          <main className='mx-auto w-full max-w-[800px]'>
+          <main className='mx-auto w-full max-w-[600px]'>
             {children}
           </main>
         </Providers>

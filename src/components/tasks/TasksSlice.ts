@@ -9,7 +9,12 @@ export interface Task {
 
 export const TasksSlice = createSlice({
     name: "Tasks",
-    initialState: [] as Task[],
+    initialState: [{
+        id: '1',
+        title: 'Learn JS',
+        desc: 'Learn JS desc',
+        completed: false
+    }] as Task[],
     reducers: {
         addTask(state, action: PayloadAction<Task>) {
             state.push(action.payload);
@@ -18,13 +23,16 @@ export const TasksSlice = createSlice({
             return state.filter(task => task.id !== action.payload)
         },
         editTask(state, action: PayloadAction<Partial<Task>>) {
-            const id = action.payload.id
+            const id = action.payload.id           
             if (id) {
                 const task = state.find(task => task.id === id)
                 if (task) {
                     if (action.payload.title) task.title = action.payload.title
                     if (action.payload.desc) task.desc = action.payload.desc
-                    if (action.payload.completed) task.completed = action.payload.completed
+                    if ('completed' in action.payload 
+                        && typeof action.payload.completed === 'boolean') {
+                        task.completed = action.payload.completed
+                    }
                 }
             }
         }
