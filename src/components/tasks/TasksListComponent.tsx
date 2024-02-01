@@ -1,8 +1,8 @@
 'use client';
 
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import React, { useState } from 'react'
-import { addTask, editTask, removeTask } from './TasksSlice';
+import React, { useEffect, useState } from 'react'
+import { addTask, editTask, initStore, removeTask } from './TasksSlice';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
@@ -10,35 +10,17 @@ import { CollapseForm } from './CollapseForm';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Checkbox } from '../ui/checkbox';
 import { EditTask } from './EditTask';
+import AddTask from './AddTask';
 
 export default function TasksListComponent() {
   const dispatch = useAppDispatch()
   const tasks = useAppSelector(state => state.tasks)
+  useEffect(() => {
+    dispatch(initStore())
+  }, [])
   return (
     <div>
-      <CollapseForm>
-        <form className='flex flex-col gap-2' onSubmit={(event) => {
-          event.preventDefault()
-          const form = event.target
-          if (form instanceof HTMLFormElement) {
-            const formData = new FormData(form)
-            const title = formData.get('title') as string
-            const desc = formData.get('desc') as string
-            dispatch(addTask({
-              title,
-              desc,
-              id: String(Math.random()),
-              completed: false
-            }))
-          }
-        }}>
-          <Label htmlFor="title">Title</Label>
-          <Input type="text" id='title' name='title' />
-          <Label htmlFor="desc">Description</Label>
-          <Input type="text" id='desc' name='desc' />
-          <Button type='submit'>Add</Button>
-        </form>
-      </CollapseForm>
+      <AddTask />
       <div className="py-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
         {
           tasks.map(task => {

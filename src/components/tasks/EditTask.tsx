@@ -32,7 +32,7 @@ export function EditTask({ task }: Props) {
         <DialogHeader>
           <DialogTitle>Edit task</DialogTitle>
           <DialogDescription>
-            Make changes to your task here. Click save when you're done.
+            Make changes to your task here.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={event => {

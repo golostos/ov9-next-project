@@ -9,6 +9,10 @@ const store = configureStore({
     }
 })
 
+store.subscribe(() => {
+    localStorage.setItem('store', JSON.stringify(store.getState()))
+})
+
 export default store
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
